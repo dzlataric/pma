@@ -30,7 +30,7 @@ public class ItemCollection {
 		mappedBy = "collection",
 		cascade = CascadeType.ALL
 	)
-	private List<Item> items = new ArrayList<>();
+	private List<ItemEntity> items = new ArrayList<>();
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Plan plan;

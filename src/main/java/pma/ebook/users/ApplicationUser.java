@@ -19,7 +19,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pma.ebook.items.Item;
+import pma.ebook.items.ItemEntity;
 import pma.ebook.items.Plan;
 
 @Entity
@@ -51,7 +51,7 @@ public class ApplicationUser {
 		joinColumns = @JoinColumn(name = "user_id"),
 		inverseJoinColumns = @JoinColumn(name = "item_id")
 	)
-	private final Set<Item> favoriteItems = new HashSet<>();
+	private final Set<ItemEntity> favoriteItems = new HashSet<>();
 
 	@ManyToMany(cascade = {
 		CascadeType.PERSIST,
@@ -61,7 +61,7 @@ public class ApplicationUser {
 		joinColumns = @JoinColumn(name = "user_id"),
 		inverseJoinColumns = @JoinColumn(name = "item_id")
 	)
-	private final Set<Item> haveReadItems = new HashSet<>();
+	private final Set<ItemEntity> haveReadItems = new HashSet<>();
 
 	@ManyToMany(cascade = {
 		CascadeType.PERSIST,
@@ -71,5 +71,5 @@ public class ApplicationUser {
 		joinColumns = @JoinColumn(name = "user_id"),
 		inverseJoinColumns = @JoinColumn(name = "item_id")
 	)
-	private final Set<Item> toReadItems = new HashSet<>();
+	private final Set<ItemEntity> toReadItems = new HashSet<>();
 }
