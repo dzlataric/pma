@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
@@ -30,6 +31,13 @@ public class UserController {
 		applicationUserRepository.save(
 			ApplicationUser.builder().fullName(user.getFullName()).username(user.getUsername()).password(bCryptPasswordEncoder.encode(user.getPassword()))
 				.build());
+	}
+
+	@GetMapping(value = "/search")
+	public List<User> search(@RequestParam final String keyword) {
+		return applicationUserRepository.findByKeyword(keyword.toLowerCase()).stream()
+			.map(au -> User.builder().id(au.getId()).fullName(au.getFullName()).username(au.getUsername()).build())
+			.collect(Collectors.toList());
 	}
 
 	@GetMapping("/favorites/{userId}")
