@@ -25,7 +25,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import lombok.AllArgsConstructor;
-import pma.ebook.users.ApplicationUser;
+import pma.ebook.bookstore.ApplicationUser;
 
 @AllArgsConstructor
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {

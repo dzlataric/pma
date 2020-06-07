@@ -1,4 +1,4 @@
-package pma.ebook.items;
+package pma.ebook.bookstore;
 
 import java.util.List;
 

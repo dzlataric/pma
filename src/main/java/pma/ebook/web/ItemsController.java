@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
-import pma.ebook.items.Item;
-import pma.ebook.items.ItemRepository;
+import pma.ebook.bookstore.Item;
+import pma.ebook.bookstore.ItemRepository;
 
 @RestController
 @AllArgsConstructor

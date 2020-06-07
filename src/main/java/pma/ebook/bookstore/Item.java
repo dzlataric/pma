@@ -1,4 +1,4 @@
-package pma.ebook.items;
+package pma.ebook.bookstore;
 
 import lombok.Builder;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package pma.ebook.users;
+package pma.ebook.bookstore;
 
 import static java.util.Collections.emptyList;
 

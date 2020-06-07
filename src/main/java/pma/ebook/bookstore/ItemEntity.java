@@ -1,4 +1,4 @@
-package pma.ebook.items;
+package pma.ebook.bookstore;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +14,6 @@ import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
-import pma.ebook.users.ApplicationUser;
 
 @Entity
 @Getter

@@ -1,4 +1,4 @@
-package pma.ebook.users;
+package pma.ebook.bookstore;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,8 +19,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pma.ebook.items.ItemEntity;
-import pma.ebook.items.Plan;
 
 @Entity
 @Getter
@@ -72,4 +70,35 @@ public class ApplicationUser {
 		inverseJoinColumns = @JoinColumn(name = "item_id")
 	)
 	private final Set<ItemEntity> toReadItems = new HashSet<>();
+
+	public void addFavorite(final ItemEntity favorite) {
+		favoriteItems.add(favorite);
+		favorite.getFavoriteUsers().add(this);
+	}
+
+	public void removeFavorite(final ItemEntity favorite) {
+		favoriteItems.remove(favorite);
+		favorite.getFavoriteUsers().remove(this);
+	}
+
+	public void addToRead(final ItemEntity toRead) {
+		favoriteItems.add(toRead);
+		toRead.getToReadUsers().add(this);
+	}
+
+	public void removeToRead(final ItemEntity toRead) {
+		favoriteItems.remove(toRead);
+		toRead.getToReadUsers().remove(this);
+	}
+
+	public void addHaveRead(final ItemEntity haveRead) {
+		favoriteItems.add(haveRead);
+		haveRead.getHaveReadUsers().add(this);
+	}
+
+	public void removeHaveRead(final ItemEntity haveRead) {
+		favoriteItems.remove(haveRead);
+		haveRead.getHaveReadUsers().remove(this);
+	}
+
 }

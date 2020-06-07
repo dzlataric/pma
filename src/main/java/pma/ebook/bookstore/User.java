@@ -1,4 +1,4 @@
-package pma.ebook.users;
+package pma.ebook.bookstore;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
