@@ -15,9 +15,9 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import lombok.AllArgsConstructor;
+import pma.ebook.bookstore.UserDetailsServiceImpl;
 import pma.ebook.security.JWTAuthenticationFilter;
 import pma.ebook.security.JWTAuthorizationFilter;
-import pma.ebook.users.UserDetailsServiceImpl;
 
 @EnableWebSecurity
 @AllArgsConstructor
