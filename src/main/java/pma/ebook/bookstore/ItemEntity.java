@@ -3,11 +3,13 @@ package pma.ebook.bookstore;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -31,7 +33,11 @@ public class ItemEntity {
 
 	private String publisher;
 
-	private byte[] file;
+	private String s3Filename;
+
+	@Lob
+	@Column
+	private byte[] image;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private ItemCollection collection;

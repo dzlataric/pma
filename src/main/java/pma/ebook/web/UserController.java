@@ -20,9 +20,11 @@ import pma.ebook.bookstore.ApplicationUser;
 import pma.ebook.bookstore.ApplicationUserRepository;
 import pma.ebook.bookstore.Item;
 import pma.ebook.bookstore.ItemRepository;
+import pma.ebook.bookstore.Settings;
 import pma.ebook.bookstore.User;
 import pma.ebook.bookstore.UserItem;
-
+import pma.ebook.bookstore.UserSettingsEntity;
+	
 @Slf4j
 @Transactional
 @RestController
@@ -36,9 +38,43 @@ public class UserController {
 
 	@PostMapping("/sign-up")
 	public void signUp(@RequestBody final User user) {
+		final var existingUser = applicationUserRepository.findByUsername(user.getUsername());
+		if (existingUser.isPresent()) {
+			throw new IllegalArgumentException(String.format("User with username %s already exists!", user.getUsername()));
+		}
 		applicationUserRepository.save(
 			ApplicationUser.builder().fullName(user.getFullName()).username(user.getUsername()).password(bCryptPasswordEncoder.encode(user.getPassword()))
 				.build());
+	}
+
+	@GetMapping(value = "/info")
+	public User getUserInfo(@RequestParam final String username) {
+		return applicationUserRepository.findByUsername(username)
+			.map(u -> User.builder().id(u.getId()).fullName(u.getFullName()).username(u.getUsername())
+				.settings(u.getSettings() != null ?
+					Settings.builder().id(u.getSettings().getId()).fontSize(u.getSettings().getFontSize()).brightnessLevel(u.getSettings().getBrightnessLevel())
+						.build() :
+					Settings.builder().build()).build())
+			.orElseThrow();
+	}
+
+	@PostMapping("/update-settings")
+	public void updateSettings(@RequestBody final Settings settings) {
+		assert settings.getUserId() != null;
+		final var existingUser = applicationUserRepository.findById(settings.getUserId());
+		if (existingUser.isPresent()) {
+			final var user = existingUser.get();
+			final var existingSettings = user.getSettings();
+			if (existingSettings != null) {
+				existingSettings.setFontSize(settings.getFontSize());
+				existingSettings.setBrightnessLevel(settings.getBrightnessLevel());
+			} else {
+				user.setSettings(
+					UserSettingsEntity.builder().user(user).fontSize(settings.getFontSize()).brightnessLevel(settings.getBrightnessLevel()).build());
+			}
+		} else {
+			throw new IllegalArgumentException(String.format("User with id %s does not exist!", settings.getUserId()));
+		}
 	}
 
 	@GetMapping(value = "/search")

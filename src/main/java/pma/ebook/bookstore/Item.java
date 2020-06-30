@@ -11,5 +11,6 @@ public class Item {
 	private String title;
 	private String description;
 	private String publisher;
+	private String s3Filename;
 
 }

@@ -9,17 +9,15 @@ import lombok.Builder;
 import lombok.Data;
 
 @Data
-@JsonInclude(Include.NON_NULL)
 @Builder(toBuilder = true)
-public class User {
+@JsonInclude(Include.NON_NULL)
+public class Settings {
 
 	@Nullable
 	private Long id;
-	private String fullName;
-	private String username;
 	@Nullable
-	private String password;
-	@Nullable
-	private Settings settings;
+	private Long userId;
+	private Long fontSize;
+	private Long brightnessLevel;
 
 }

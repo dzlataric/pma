@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -70,6 +71,9 @@ public class ApplicationUser {
 		inverseJoinColumns = @JoinColumn(name = "item_id")
 	)
 	private final Set<ItemEntity> toReadItems = new HashSet<>();
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private UserSettingsEntity settings;
 
 	public void addFavorite(final ItemEntity favorite) {
 		favoriteItems.add(favorite);
