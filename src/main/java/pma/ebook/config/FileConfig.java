@@ -39,13 +39,13 @@ public class FileConfig {
 		log.info("Found {} resources", resources.length);
 		Arrays.stream(resources).forEach(r -> {
 			final EpubReader epubReader = new EpubReader();
-			try {
-				final var inputStream = r.getInputStream();
+			try (final var inputStream = r.getInputStream()) {
 				final var byteArray = IOUtils.toByteArray(inputStream);
 				final Book book = epubReader.readEpub(r.getInputStream());
-				final var exists = itemRepository.existsByTitle(book.getTitle());
+				final var title = book.getTitle().replaceAll("[^a-zA-Z0-9,_-]", "");
+				final var exists = itemRepository.existsByTitle(title);
 				if (!exists) {
-					itemRepository.save(ItemEntity.builder().title(book.getTitle()).content(byteArray).image(book.getCoverImage().getData()).build());
+					itemRepository.save(ItemEntity.builder().title(title).content(byteArray).image(book.getCoverImage().getData()).build());
 				}
 			} catch (final IOException e) {
 				log.error("Error storing file {} to database", r.getFilename(), e);
