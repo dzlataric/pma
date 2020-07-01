@@ -24,7 +24,7 @@ import pma.ebook.bookstore.Settings;
 import pma.ebook.bookstore.User;
 import pma.ebook.bookstore.UserItem;
 import pma.ebook.bookstore.UserSettingsEntity;
-	
+
 @Slf4j
 @Transactional
 @RestController
@@ -88,7 +88,7 @@ public class UserController {
 	public List<Item> findFavorites(@PathVariable final Long userId) {
 		return applicationUserRepository.findById(userId)
 			.map(u -> u.getFavoriteItems().stream()
-				.map(item -> Item.builder().id(item.getId()).title(item.getTitle()).description(item.getDescription()).publisher(item.getPublisher()).build())
+				.map(item -> Item.builder().id(item.getId()).title(item.getTitle()).build())
 				.collect(Collectors.toList())).orElseThrow();
 	}
 
@@ -108,7 +108,7 @@ public class UserController {
 	public List<Item> findToRead(@PathVariable final Long userId) {
 		return applicationUserRepository.findById(userId)
 			.map(u -> u.getToReadItems().stream()
-				.map(item -> Item.builder().id(item.getId()).title(item.getTitle()).description(item.getDescription()).publisher(item.getPublisher()).build())
+				.map(item -> Item.builder().id(item.getId()).title(item.getTitle()).build())
 				.collect(Collectors.toList())).orElseThrow();
 	}
 
@@ -128,7 +128,7 @@ public class UserController {
 	public List<Item> findHaveRead(@PathVariable final Long userId) {
 		return applicationUserRepository.findById(userId)
 			.map(u -> u.getHaveReadItems().stream()
-				.map(item -> Item.builder().id(item.getId()).title(item.getTitle()).description(item.getDescription()).publisher(item.getPublisher()).build())
+				.map(item -> Item.builder().id(item.getId()).title(item.getTitle()).build())
 				.collect(Collectors.toList())).orElseThrow();
 	}
 

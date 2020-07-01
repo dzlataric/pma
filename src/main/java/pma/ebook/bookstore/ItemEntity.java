@@ -14,12 +14,18 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "ITEM")
 public class ItemEntity {
 
@@ -29,11 +35,9 @@ public class ItemEntity {
 
 	private String title;
 
-	private String description;
-
-	private String publisher;
-
-	private String s3Filename;
+	@Lob
+	@Column
+	private byte[] content;
 
 	@Lob
 	@Column

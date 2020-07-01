@@ -9,8 +9,6 @@ public class Item {
 
 	private Long id;
 	private String title;
-	private String description;
-	private String publisher;
-	private String s3Filename;
+	private String base64EncodedImage;
 
 }
