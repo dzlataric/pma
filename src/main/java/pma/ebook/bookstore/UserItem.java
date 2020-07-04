@@ -8,6 +8,6 @@ import lombok.Data;
 public class UserItem {
 
 	private Long userId;
-	private Long itemId;
+	private String itemTitle;
 
 }

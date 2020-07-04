@@ -1,5 +1,6 @@
 package pma.ebook.web;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -88,60 +89,63 @@ public class UserController {
 	public List<Item> findFavorites(@PathVariable final Long userId) {
 		return applicationUserRepository.findById(userId)
 			.map(u -> u.getFavoriteItems().stream()
-				.map(item -> Item.builder().id(item.getId()).title(item.getTitle()).build())
+				.map(item -> Item.builder().id(item.getId()).title(item.getTitle()).base64EncodedImage(Base64.getEncoder().encodeToString(item.getImage()))
+					.build())
 				.collect(Collectors.toList())).orElseThrow();
 	}
 
 	@PostMapping("/favorites/add")
 	public void addToFavorites(@RequestBody final UserItem userItem) {
 		final var user = applicationUserRepository.findById(userItem.getUserId()).orElseThrow();
-		user.addFavorite(itemRepository.findById(userItem.getItemId()).orElseThrow());
+		user.addFavorite(itemRepository.findByTitle(userItem.getItemTitle()).orElseThrow());
 	}
 
 	@PostMapping("/favorites/remove")
 	public void removeFavorite(@RequestBody final UserItem userItem) {
 		final var user = applicationUserRepository.findById(userItem.getUserId()).orElseThrow();
-		user.removeFavorite(itemRepository.findById(userItem.getItemId()).orElseThrow());
+		user.removeFavorite(itemRepository.findByTitle(userItem.getItemTitle()).orElseThrow());
 	}
 
 	@GetMapping("/to-read/{userId}")
 	public List<Item> findToRead(@PathVariable final Long userId) {
 		return applicationUserRepository.findById(userId)
 			.map(u -> u.getToReadItems().stream()
-				.map(item -> Item.builder().id(item.getId()).title(item.getTitle()).build())
+				.map(item -> Item.builder().id(item.getId()).title(item.getTitle()).base64EncodedImage(Base64.getEncoder().encodeToString(item.getImage()))
+					.build())
 				.collect(Collectors.toList())).orElseThrow();
 	}
 
 	@PostMapping("/to-read/add")
 	public void addToRead(@RequestBody final UserItem userItem) {
 		final var user = applicationUserRepository.findById(userItem.getUserId()).orElseThrow();
-		user.addToRead(itemRepository.findById(userItem.getItemId()).orElseThrow());
+		user.addToRead(itemRepository.findByTitle(userItem.getItemTitle()).orElseThrow());
 	}
 
 	@PostMapping("/to-read/remove")
 	public void removeToRead(@RequestBody final UserItem userItem) {
 		final var user = applicationUserRepository.findById(userItem.getUserId()).orElseThrow();
-		user.removeToRead(itemRepository.findById(userItem.getItemId()).orElseThrow());
+		user.removeToRead(itemRepository.findByTitle(userItem.getItemTitle()).orElseThrow());
 	}
 
 	@GetMapping("/have-read/{userId}")
 	public List<Item> findHaveRead(@PathVariable final Long userId) {
 		return applicationUserRepository.findById(userId)
 			.map(u -> u.getHaveReadItems().stream()
-				.map(item -> Item.builder().id(item.getId()).title(item.getTitle()).build())
+				.map(item -> Item.builder().id(item.getId()).title(item.getTitle()).base64EncodedImage(Base64.getEncoder().encodeToString(item.getImage()))
+					.build())
 				.collect(Collectors.toList())).orElseThrow();
 	}
 
 	@PostMapping("/have-read/add")
 	public void addHaveRead(@RequestBody final UserItem userItem) {
 		final var user = applicationUserRepository.findById(userItem.getUserId()).orElseThrow();
-		user.addHaveRead(itemRepository.findById(userItem.getItemId()).orElseThrow());
+		user.addHaveRead(itemRepository.findByTitle(userItem.getItemTitle()).orElseThrow());
 	}
 
 	@PostMapping("/have-read/remove")
 	public void removeHaveRead(@RequestBody final UserItem userItem) {
 		final var user = applicationUserRepository.findById(userItem.getUserId()).orElseThrow();
-		user.removeHaveRead(itemRepository.findById(userItem.getItemId()).orElseThrow());
+		user.removeHaveRead(itemRepository.findByTitle(userItem.getItemTitle()).orElseThrow());
 	}
 
 }
