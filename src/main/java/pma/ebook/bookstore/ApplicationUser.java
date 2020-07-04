@@ -86,22 +86,22 @@ public class ApplicationUser {
 	}
 
 	public void addToRead(final ItemEntity toRead) {
-		favoriteItems.add(toRead);
+		toReadItems.add(toRead);
 		toRead.getToReadUsers().add(this);
 	}
 
 	public void removeToRead(final ItemEntity toRead) {
-		favoriteItems.remove(toRead);
+		toReadItems.remove(toRead);
 		toRead.getToReadUsers().remove(this);
 	}
 
 	public void addHaveRead(final ItemEntity haveRead) {
-		favoriteItems.add(haveRead);
+		haveReadItems.add(haveRead);
 		haveRead.getHaveReadUsers().add(this);
 	}
 
 	public void removeHaveRead(final ItemEntity haveRead) {
-		favoriteItems.remove(haveRead);
+		haveReadItems.remove(haveRead);
 		haveRead.getHaveReadUsers().remove(this);
 	}
 
